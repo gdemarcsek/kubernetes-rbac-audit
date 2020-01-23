@@ -43,7 +43,7 @@ class ExtensiveRolesChecker(object):
     def _generate(self):
         for entity in self._json_file['items']:
             role_name = entity['metadata']['name']
-            for rule in entity['rules']:
+            for rule in entity.get('rules', []) or []:
                 if not rule.get('resources', None):
                     continue
                 self.get_read_secrets(rule, role_name)
